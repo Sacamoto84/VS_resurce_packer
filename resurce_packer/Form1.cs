@@ -138,6 +138,8 @@ namespace resurce_packer
             Collection_to_list();
         }
 
+
+
         /// <summary>
         /// Кнопка открыть картинку
         /// </summary>
@@ -145,7 +147,10 @@ namespace resurce_packer
         /// <param name="e"></param>
         private void buttonOpenPicture_Click(object sender, EventArgs e)
         {
-            //При открытии помещаем в коллекцию массив
+
+            //#TagName7
+  
+            //При открытии#TagName помещаем в коллекцию массив
             var ofd = new OpenFileDialog();
             ofd.RestoreDirectory = true;
             if (ofd.ShowDialog() == DialogResult.OK)
@@ -171,6 +176,7 @@ namespace resurce_packer
         {
             //При открытии помещаем в коллекцию массив
             var ofd = new OpenFileDialog();
+
             ofd.RestoreDirectory = true;
             if (ofd.ShowDialog() == DialogResult.OK)
             {

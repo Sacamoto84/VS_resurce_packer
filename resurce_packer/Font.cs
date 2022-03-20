@@ -310,6 +310,8 @@ namespace resurce_packer
         }
         public static Image BytesToImage(byte[] value)
         {
+            
+
             using (var ms = new MemoryStream(value))
             {
                 return Image.FromStream(ms);
