@@ -38,7 +38,7 @@ namespace resurce_packer
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.labelIndex = new System.Windows.Forms.Label();
-            this.tbAllBytes = new System.Windows.Forms.TextBox();
+            this.tbAdress = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.log = new System.Windows.Forms.ListBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -61,6 +61,8 @@ namespace resurce_packer
             this.buttonSaveAllToBin = new System.Windows.Forms.Button();
             this.comboBoxBMPBit = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.buttonFlash = new System.Windows.Forms.Button();
+            this.buttonSaveAdress = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -139,17 +141,17 @@ namespace resurce_packer
             this.labelIndex.TabIndex = 9;
             this.labelIndex.Text = "label4";
             // 
-            // tbAllBytes
+            // tbAdress
             // 
-            this.tbAllBytes.Location = new System.Drawing.Point(680, 519);
-            this.tbAllBytes.Name = "tbAllBytes";
-            this.tbAllBytes.Size = new System.Drawing.Size(366, 27);
-            this.tbAllBytes.TabIndex = 10;
+            this.tbAdress.Location = new System.Drawing.Point(383, 512);
+            this.tbAdress.Name = "tbAdress";
+            this.tbAdress.Size = new System.Drawing.Size(177, 27);
+            this.tbAdress.TabIndex = 10;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(561, 519);
+            this.label5.Location = new System.Drawing.Point(383, 489);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(113, 20);
             this.label5.TabIndex = 11;
@@ -188,7 +190,7 @@ namespace resurce_packer
             this.buttonSaveJson.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonSaveJson.BackgroundImage")));
             this.buttonSaveJson.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonSaveJson.Font = new System.Drawing.Font("JetBrains Mono", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonSaveJson.Location = new System.Drawing.Point(629, 327);
+            this.buttonSaveJson.Location = new System.Drawing.Point(629, 251);
             this.buttonSaveJson.Name = "buttonSaveJson";
             this.buttonSaveJson.Size = new System.Drawing.Size(243, 78);
             this.buttonSaveJson.TabIndex = 15;
@@ -198,7 +200,7 @@ namespace resurce_packer
             // 
             // buttonSaveItem
             // 
-            this.buttonSaveItem.Location = new System.Drawing.Point(629, 195);
+            this.buttonSaveItem.Location = new System.Drawing.Point(629, 110);
             this.buttonSaveItem.Name = "buttonSaveItem";
             this.buttonSaveItem.Size = new System.Drawing.Size(243, 29);
             this.buttonSaveItem.TabIndex = 16;
@@ -223,7 +225,7 @@ namespace resurce_packer
             // 
             this.buttonOpenPicture.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonOpenPicture.BackgroundImage")));
             this.buttonOpenPicture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonOpenPicture.Location = new System.Drawing.Point(629, 233);
+            this.buttonOpenPicture.Location = new System.Drawing.Point(629, 162);
             this.buttonOpenPicture.Name = "buttonOpenPicture";
             this.buttonOpenPicture.Size = new System.Drawing.Size(243, 83);
             this.buttonOpenPicture.TabIndex = 18;
@@ -338,9 +340,9 @@ namespace resurce_packer
             // 
             // buttonSaveAllToBin
             // 
-            this.buttonSaveAllToBin.Location = new System.Drawing.Point(629, 411);
+            this.buttonSaveAllToBin.Location = new System.Drawing.Point(629, 417);
             this.buttonSaveAllToBin.Name = "buttonSaveAllToBin";
-            this.buttonSaveAllToBin.Size = new System.Drawing.Size(243, 75);
+            this.buttonSaveAllToBin.Size = new System.Drawing.Size(243, 69);
             this.buttonSaveAllToBin.TabIndex = 33;
             this.buttonSaveAllToBin.Text = "Сохнанит все в BIN";
             this.buttonSaveAllToBin.UseVisualStyleBackColor = true;
@@ -358,7 +360,6 @@ namespace resurce_packer
             this.comboBoxBMPBit.Name = "comboBoxBMPBit";
             this.comboBoxBMPBit.Size = new System.Drawing.Size(198, 28);
             this.comboBoxBMPBit.TabIndex = 34;
-            this.comboBoxBMPBit.SelectedIndexChanged += new System.EventHandler(this.comboBoxBMPBit_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -369,11 +370,33 @@ namespace resurce_packer
             this.label3.TabIndex = 35;
             this.label3.Text = "Bit";
             // 
+            // buttonFlash
+            // 
+            this.buttonFlash.Location = new System.Drawing.Point(383, 417);
+            this.buttonFlash.Name = "buttonFlash";
+            this.buttonFlash.Size = new System.Drawing.Size(240, 69);
+            this.buttonFlash.TabIndex = 36;
+            this.buttonFlash.Text = "Прошить";
+            this.buttonFlash.UseVisualStyleBackColor = true;
+            this.buttonFlash.Click += new System.EventHandler(this.buttonFlash_Click);
+            // 
+            // buttonSaveAdress
+            // 
+            this.buttonSaveAdress.Location = new System.Drawing.Point(566, 512);
+            this.buttonSaveAdress.Name = "buttonSaveAdress";
+            this.buttonSaveAdress.Size = new System.Drawing.Size(57, 29);
+            this.buttonSaveAdress.TabIndex = 37;
+            this.buttonSaveAdress.Text = "S";
+            this.buttonSaveAdress.UseVisualStyleBackColor = true;
+            this.buttonSaveAdress.Click += new System.EventHandler(this.buttonSaveAdress_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1375, 555);
+            this.Controls.Add(this.buttonSaveAdress);
+            this.Controls.Add(this.buttonFlash);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.comboBoxBMPBit);
             this.Controls.Add(this.buttonSaveAllToBin);
@@ -392,7 +415,7 @@ namespace resurce_packer
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.log);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.tbAllBytes);
+            this.Controls.Add(this.tbAdress);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbName);
@@ -401,6 +424,8 @@ namespace resurce_packer
             this.Controls.Add(this.listBox1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.Shown += new System.EventHandler(this.Form1_Shown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -421,7 +446,7 @@ namespace resurce_packer
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label labelIndex;
-        private System.Windows.Forms.TextBox tbAllBytes;
+        private System.Windows.Forms.TextBox tbAdress;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ListBox log;
         private System.Windows.Forms.Label label4;
@@ -444,5 +469,7 @@ namespace resurce_packer
         private System.Windows.Forms.Button buttonSaveAllToBin;
         private System.Windows.Forms.ComboBox comboBoxBMPBit;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button buttonFlash;
+        private System.Windows.Forms.Button buttonSaveAdress;
     }
 }

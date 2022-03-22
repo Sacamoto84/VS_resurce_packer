@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 using System.Windows.Forms;
 
 
@@ -43,6 +45,10 @@ namespace resurce_packer
                 resCollection.Add(new resItem() { id = 10, name = "+" });
             Collection_to_list();
             CalculateSummBytes();
+
+            jsonString = File.ReadAllText("start.txt");
+            tbAdress.Text = jsonString;
+
         }
 
         private void Collection_to_list()
@@ -262,7 +268,7 @@ namespace resurce_packer
         {
             int sum = 4 + (resCollection.Count * 48); //Заголовок и десккрипшены
 
-            tbAllBytes.Text = "Заголовок: " + sum.ToString() + " Данные:" + " Всего";
+            tbAdress.Text = "Заголовок: " + sum.ToString() + " Данные:" + " Всего";
             return sum;
 
         }
@@ -381,9 +387,40 @@ namespace resurce_packer
 
 
 
-        private void comboBoxBMPBit_SelectedIndexChanged(object sender, EventArgs e)
+
+
+        private void buttonFlash_Click(object sender, EventArgs e)
         {
 
+          StreamWriter Performing = new StreamWriter(Environment.CurrentDirectory + @"\Performing.bat");
+          Performing.WriteLine("jlink -device STM32F407VG -if SWD -speed 1000 -CommanderScript jlink.Command", Encoding.UTF8);
+          Performing.Close();
+
+          StreamWriter Performing1 = new StreamWriter(Environment.CurrentDirectory + @"\jlink.Command");
+          Performing1.WriteLine("loadbin   res.bin ,"+tbAdress.Text, Encoding.UTF8);
+          Performing1.WriteLine("verifybin res.bin ,"+tbAdress.Text, Encoding.UTF8);
+          Performing1.WriteLine("r", Encoding.UTF8);
+          Performing1.WriteLine("exit", Encoding.UTF8);
+          Performing1.Close();
+
+          ProcessStartInfo startInfo = new ProcessStartInfo(Environment.CurrentDirectory + @"\Performing.bat");
+          startInfo.WorkingDirectory = Application.StartupPath;
+          Process.Start(startInfo);
+
+          LOG("Прошивка");
+
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            File.Delete("Performing.bat");
+            File.Delete("jlink.Command");
+        }
+
+
+        private void buttonSaveAdress_Click(object sender, EventArgs e)
+        {
+            File.WriteAllText("start.txt", tbAdress.Text);
         }
     }
 
