@@ -1,16 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.IO;
-using Newtonsoft.Json;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Windows.Forms;
 
 
 
@@ -59,7 +53,7 @@ namespace resurce_packer
 
             foreach (resItem item in resCollection)
             {
-                string str = "id: " + item.id.ToString() + "  Имя: " + item.name + "  Тип: " + item.type;
+                string str = "id: " + item.id.ToString() + "  Имя: " + item.name + "  Тип: " + item.type +" bit:"+item.bit.ToString();
                 listBox1.Items.Add(str);
             }
             LOG("Обновить listbox");
@@ -79,6 +73,9 @@ namespace resurce_packer
             tbID.Text = resCollection[index].id.ToString();
             tbName.Text = resCollection[index].name;
 
+            comboBoxBMPBit.Text = resCollection[index].bit.ToString();
+
+
             listBox2.Items.Clear();
             if (resCollection[index].type == "BMP")
             {
@@ -87,11 +84,14 @@ namespace resurce_packer
                 listBox2.Items.Add("Пикселей : " + resCollection[index].H * resCollection[index].W);
                 listBox2.Items.Add("32b : " + resCollection[index].H * resCollection[index].W * 4);
                 listBox2.Items.Add("16b : " + resCollection[index].H * resCollection[index].W * 2);
+
+                dataGridView1.Enabled = false;
             }
             if (resCollection[index].type == "FONT")
             {
                 if (resCollection[index].img_byte_arr != null)
                 {
+                    dataGridView1.Enabled = true;
                     listBox2.Items.Add("Размер: " + resCollection[index].img_byte_arr.Length.ToString());
                     listBox2.Items.Add("Модуль 4: " + (resCollection[index].img_byte_arr.Length % 4).ToString());
                     Font_Smooth_Load();
@@ -99,7 +99,7 @@ namespace resurce_packer
                 else
                 {
                     listBox2.Items.Add("Нет данных");
-                }    
+                }
             }
 
             //Перерисовка картинки
@@ -123,7 +123,7 @@ namespace resurce_packer
         }
 
         private void buttonSaveJson_Click(object sender, EventArgs e)
-        { 
+        {
             string jsonString = JsonConvert.SerializeObject(resCollection);
             File.WriteAllText("resCollection.json", jsonString);
             LOG("Сохранить json");
@@ -134,7 +134,7 @@ namespace resurce_packer
             //Сохранение данных из TextBox в структуре
             resCollection[selectedIndex].id = Convert.ToInt32(tbID.Text);
             resCollection[selectedIndex].name = tbName.Text;
-
+            resCollection[selectedIndex].bit = Convert.ToInt32(comboBoxBMPBit.Text);
             Collection_to_list();
         }
 
@@ -149,7 +149,7 @@ namespace resurce_packer
         {
 
             //#TagName7
-  
+
             //При открытии#TagName помещаем в коллекцию массив
             var ofd = new OpenFileDialog();
             ofd.RestoreDirectory = true;
@@ -210,7 +210,7 @@ namespace resurce_packer
             }
 
         }
-        
+
         /// <summary>
         /// Кнопка сохранить в коллекцию <br/>
         /// Проевращаем структуры фонта в массив байтов в resCollection 
@@ -249,7 +249,7 @@ namespace resurce_packer
             //Перерисовка
             dataGridView1.Rows.Clear();
             foreach (Gliph g in GliphCollection)
-            {   
+            {
                 dataGridView1.Rows.Add(new object[] { g.bmp, g.gUnicode.ToString(), String.Format("0X{0:X}", g.gUnicode) });
             }
         }
@@ -267,7 +267,7 @@ namespace resurce_packer
 
         }
 
-      
+
         /// <summary>
         /// Событие> Выбрана строка
         /// </summary>
@@ -293,19 +293,101 @@ namespace resurce_packer
         }
 
 
+        //Кнопка сохранить все в Bin
+        private void buttonSaveAllToBin_Click(object sender, EventArgs e)
+        {
+            LOG("Создаем BIN файл");
+            List<byte> BIN = new List<byte>();
+            uint sum = 0;
+
+
+            //Пробегаем по коллекции и создаем bindata для каждого елемента
+            foreach(resItem item in resCollection)
+            {
+                //Пробегаем по коллекции
+                if (item.type == "FONT")
+                {
+                    LOG("----------------------");
+                    LOG("Это Font");
+                    //Проверяем модуль item.img_byte_arr
+                    int mod = item.img_byte_arr.Length % 4;
+                    LOG("img_byte_arr.Length:" + item.img_byte_arr.Length.ToString());
+                    LOG("Модуль:" + mod.ToString());
+                    if (mod > 0)
+                    {
+                        List<byte> temp = new List<byte>();
+                        temp.AddRange(item.img_byte_arr);
+                        if (mod == 1) { temp.Add(0);temp.Add(0);temp.Add(0);}
+                        if (mod == 2) { temp.Add(0); temp.Add(0);}
+                        if (mod == 3) { temp.Add(0);}
+                        item.setBinData(temp.ToArray());
+                        LOG("temp.Count:"  +  temp.Count.ToString()) ;
+                        LOG("Модуль:"      + (temp.Count % 4).ToString());
+                        sum += item.getBinLength();
+                    }
+                    else
+                    {
+                        item.setBinData(item.img_byte_arr);
+                        sum += item.getBinLength();
+                    }         
+                }
+
+                if (item.type == "BMP")
+                {
+                   LOG("----------------------");
+                   LOG("Это BMP H:" + item.H.ToString() + " W:" + item.W.ToString() + " bit:" + item.bit.ToString());
+                   item.setBinData(ImageToBytesBit(BytesToImage(item.img_byte_arr), item.bit));
+                   LOG("Размер Bin: " +item.getBinLength());
+                   sum += item.getBinLength();
+                }
+            }
+
+            LOG("----------------------");
+
+            LOG("Общий размер Data " + sum.ToString());
+            //Дата мы создали теперь собираем дескрипторы
+
+            BIN.Add(0);BIN.Add(0);BIN.Add(0);
+            BIN.Add((byte)resCollection.Count);
+
+            UInt32 baseOffset = (UInt32)(4 + resCollection.Count * 16); //Начало данных
+            
+            foreach(resItem item in resCollection)
+            {
+                BIN.AddRange( writeInt32((UInt32)(item.W)));
+                BIN.AddRange( writeInt32((UInt32)(item.H)));
+                BIN.AddRange( writeInt32((UInt32)(item.bit)));
+
+                BIN.AddRange( writeInt32((UInt32)(baseOffset)));
+
+                baseOffset += item.getBinLength();
+            }
+
+            foreach (resItem item in resCollection)
+            {
+                BIN.AddRange( item.getBinData());
+            }
+
+            LOG("Общий размер BIN = " + BIN.Count.ToString() +" байт");
+            LOG("Модуль BIN:"      + (BIN.Count % 4).ToString());
+
+            byte[] fileout = BIN.ToArray();
+
+            LOG(fileout.Length.ToString());
+
+            File.WriteAllBytes("res.bin", fileout);
+
+        }
+
+
+
+        private void comboBoxBMPBit_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 
 
 
-    class resItem
-    {
-        public int id { get; set; }              //id ресурса
-        public int start_adress { get; set; }    //Стартовый адресс
-        public string name { get; set; }         //Название
-        public string type { get; set; }         //тип ресурса BMP FONT 
-        public int H { get; set; }               //высота
-        public int W { get; set; }               //ширина
-        public int bit { get; set; }             //тип ресурс
-        public byte[] img_byte_arr { get; set; }
-    }
+
 }

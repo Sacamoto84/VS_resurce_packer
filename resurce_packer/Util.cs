@@ -1,8 +1,6 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -11,6 +9,7 @@ namespace resurce_packer
 {
     partial class Form1
     {
+
         UInt32 readInt32()
         {
             UInt32 res = 0;
@@ -20,7 +19,8 @@ namespace resurce_packer
             res |= (UInt32)resCollection[selectedIndex].img_byte_arr[p++];
             return res;
         }
-        public byte[] writeInt32(UInt32 _in)
+
+         byte[] writeInt32(UInt32 _in)
         {
             byte[] res = new byte[4];
 
@@ -44,20 +44,21 @@ namespace resurce_packer
 
             p = 0;
             p_start = 0;
-            gFont.gCount = (UInt16)readInt32(); // glyph count in file
-            readInt32(); // vlw encoder version - discard
-            gFont.yAdvance = (UInt16)readInt32(); // Font size in points, not pixels
-            readInt32(); // discard
-            gFont.ascent = (Int16)readInt32(); // top of "d"
-            gFont.descent = (Int16)readInt32(); // bottom of "p""
+            gFont.gCount   = (UInt16)readInt32();      // glyph count in file
+            readInt32();                               // vlw encoder version - discard
+            gFont.yAdvance = (UInt16)readInt32();      // Font size in points, not pixels
+            readInt32();                               // discard
+            gFont.ascent   = (Int16) readInt32();      // top of "d"
+            gFont.descent  = (Int16) readInt32();      // bottom of "p""
 
-            gFont.maxAscent = (UInt16)gFont.ascent;   // Determined from metrics
-            gFont.maxDescent = (UInt16)gFont.descent;  // Determined from metrics
-            gFont.yAdvance = (UInt16)(gFont.ascent + gFont.descent);
+            gFont.maxAscent  = (UInt16) gFont.ascent;   // Determined from metrics
+            gFont.maxDescent = (UInt16) gFont.descent;  // Determined from metrics
+            gFont.yAdvance   = (UInt16)(gFont.ascent + gFont.descent);
             gFont.spaceWidth = (UInt16)(gFont.yAdvance / 4);  // Guess at space width
 
             Font_Smooth_loadMetrics(gFont.gCount);
         }
+
         void Font_Smooth_loadMetrics(UInt16 gCount)
         {
             UInt32 headerPtr = 24;
@@ -146,7 +147,7 @@ namespace resurce_packer
 
                 p_gBitmap = p_start + GliphCollection[gNum].gBitmap; //Начало графических данных
 
-                Int16 xs = 0;
+                Int16  xs = 0;
                 UInt32 dl = 0;
 
                 Int16 cy = (Int16)(Y + gFont.maxAscent - GliphCollection[gNum].gdY);
@@ -199,16 +200,7 @@ namespace resurce_packer
                 }
                 X += (short)(GliphCollection[gNum].gxAdvance);
             }
-            else
-            {
-                // Not a Unicode in font so draw a rectangle and move on cursor
-                //SolidBrush pixelBrush = new SolidBrush(Color.Aqua);
-                //FillRectangle(pixelBrush, 0, 0, gFont.spaceWidth, gFont.ascent);
 
-                //RectangleFilled(X, Y + gFont.maxAscent - gFont.ascent,
-                //        gFont.spaceWidth, gFont.ascent, fg);
-                //X += (short)(gFont.spaceWidth + 1);
-            }
             return bmp;
         }
 
@@ -233,8 +225,6 @@ namespace resurce_packer
         }
 
 
-
-   
         /// <summary>
         /// Превращаем структуры фонта в массив байтов в resCollection (для кнопки сохранить глиф)
         /// </summary>
@@ -301,57 +291,134 @@ namespace resurce_packer
         /// </summary>
         /// <param name="value">Сколько раз передать привет</param>
         /// <returns>Сама строка с приветами</returns>
-        /* BMP */
-        public static byte[] ImageToBytes(Image value)
+         byte[] ImageToBytes(Image value)
         {
             ImageConverter converter = new ImageConverter();
             byte[] arr = (byte[])converter.ConvertTo(value, typeof(byte[]));
             return arr;
         }
-        public static Image BytesToImage(byte[] value)
+         Image  BytesToImage(byte[] value)
         {
-            
-
             using (var ms = new MemoryStream(value))
             {
                 return Image.FromStream(ms);
             }
         }
 
+        byte[] ImageToBytesBit(Image value, int bit)
+        { 
+            List<byte> arr = new List<byte>();
+            Bitmap bmp = new Bitmap(value);
+            byte A = 0;
+            byte R = 0;
+            byte G = 0;
+            byte B = 0;
+            
+            for (int y = 0; y < bmp.Height; y++)
+            {
+                for (int x = 0; x < bmp.Width; x++)
+                {
+                    Color Pixel = bmp.GetPixel(x, y);
+                    A = Pixel.A; R = Pixel.R; G = Pixel.G; B = Pixel.B;
+
+                    if (bit == 32)
+                    {
+                        arr.Add(A);arr.Add(R);arr.Add(G);arr.Add(B);
+                    }
+
+                    if (bit == 16)
+                    {
+                        arr.AddRange(RGB565(R, G, B));
+                    }                  
+                }
+            }
+
+            return arr.ToArray();
+        }
 
 
+
+        byte[] RGB565(byte R, byte G, byte B)
+        {
+            UInt16 r;
+            r = (UInt16)(((R >> 3) << 11) | ((G >> 2) << 5) | (B >> 3));
+            byte[] ret = { 0, 0 };
+            ret[1] = (byte)(r >> 8);
+            ret[0] = (byte)(r & 0xFF);
+            return ret;
+        }
+
+   
 
         /* LOG */
         private void LOG(string str)
         {
+            // #this 
+            // sdfsdfsdfsdf sdfsdfsd dsfsdfsdf
+
             log.SelectionMode = SelectionMode.One;
             log.Items.Add(str);
             log.SelectedIndex = log.Items.Count - 1;
         }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
-
-
-
-
-
-
-
-
-
-
 
     public struct fontMetrics
     {
         public UInt16 gCount;     // Total number of characters
         public UInt16 yAdvance;   // Line advance
         public UInt16 spaceWidth; // Width of a space character
-        public Int16 ascent;     // Height of top of 'd' above baseline, other characters may be taller
-        public Int16 descent;    // Offset to bottom of 'p', other characters may have a larger descent
+        public Int16  ascent;     // Height of top of 'd' above baseline, other characters may be taller
+        public Int16  descent;    // Offset to bottom of 'p', other characters may have a larger descent
         public UInt16 maxAscent;  // Maximum ascent found in font
         public UInt16 maxDescent; // Maximum descent found in font
     };
+    class resItem
+    {
+        public int    id { get; set; }              //id ресурса
+        public int    start_adress { get; set; }    //Стартовый адресс
+        public string name { get; set; }         //Название
+        public string type { get; set; }         //тип ресурса BMP FONT 
+        public int    H              { get; set; }               //высота
+        public int    W              { get; set; }               //ширина
+        public int    bit            { get; set; }             //тип ресурс
+        public byte[] img_byte_arr { get; set; }
+        
+        byte[] binData  { get; set;}
+
+        public void setBinData(byte [] data)
+        {
+            binData = data;
+        }
+        public byte[] getBinData()
+        {
+             return binData;
+        }
+
+        public UInt32 getBinLength()
+        {
+            return (UInt32)binData.Length;
+        }
+
+    }
     class Gliph
     {
         public UInt16 gUnicode { get; set; } //Unicode 16 bit Basic Multilingual Plane(0-FFFF)
@@ -366,3 +433,4 @@ namespace resurce_packer
     }
 
 }
+
