@@ -17,7 +17,7 @@ namespace resurce_packer
     {
         List<resItem> resCollection = new List<resItem>();
         int selectedIndex; //Текущий выбранный индекс
-        UInt32 start_adress = 0x0800C000;
+        //UInt32 start_adress = 0x0800C000;
 
 
 
@@ -37,16 +37,15 @@ namespace resurce_packer
         //Открытите
         private void Form1_Shown(object sender, EventArgs e)
         {
-
-            string jsonString = File.ReadAllText("resCollection.json");
+            string jsonString = File.ReadAllText("data\\resCollection.json");
 
             resCollection = JsonConvert.DeserializeObject<List<resItem>>(jsonString);
             if (resCollection == null)
                 resCollection.Add(new resItem() { id = 10, name = "+" });
             Collection_to_list();
-            CalculateSummBytes();
+            //CalculateSummBytes();
 
-            jsonString = File.ReadAllText("start.txt");
+            jsonString = File.ReadAllText("data\\start.txt");
             tbAdress.Text = jsonString;
 
         }
@@ -59,7 +58,7 @@ namespace resurce_packer
 
             foreach (resItem item in resCollection)
             {
-                string str = "id: " + item.id.ToString() + "  Имя: " + item.name + "  Тип: " + item.type +" bit:"+item.bit.ToString();
+                string str = "id: " + item.id.ToString() + "  Тип: " + item.type +" bit:"+item.bit.ToString() + "  Имя: " + item.name ;
                 listBox1.Items.Add(str);
             }
             LOG("Обновить listbox");
@@ -131,7 +130,7 @@ namespace resurce_packer
         private void buttonSaveJson_Click(object sender, EventArgs e)
         {
             string jsonString = JsonConvert.SerializeObject(resCollection);
-            File.WriteAllText("resCollection.json", jsonString);
+            File.WriteAllText("data\\resCollection.json", jsonString);
             LOG("Сохранить json");
         }
 
@@ -268,7 +267,7 @@ namespace resurce_packer
         {
             int sum = 4 + (resCollection.Count * 48); //Заголовок и десккрипшены
 
-            tbAdress.Text = "Заголовок: " + sum.ToString() + " Данные:" + " Всего";
+            //tbAdress.Text = "Заголовок: " + sum.ToString() + " Данные:" + " Всего";
             return sum;
 
         }
@@ -341,7 +340,7 @@ namespace resurce_packer
                 if (item.type == "BMP")
                 {
                    LOG("----------------------");
-                   LOG("Это BMP H:" + item.H.ToString() + " W:" + item.W.ToString() + " bit:" + item.bit.ToString());
+                   LOG("Это BMP Имя: "+ item.name +" H=" + item.H.ToString() + " W=" + item.W.ToString() + " bit:" + item.bit.ToString());
                    item.setBinData(ImageToBytesBit(BytesToImage(item.img_byte_arr), item.bit));
                    LOG("Размер Bin: " +item.getBinLength());
                    sum += item.getBinLength();
@@ -352,19 +351,16 @@ namespace resurce_packer
 
             LOG("Общий размер Data " + sum.ToString());
             //Дата мы создали теперь собираем дескрипторы
-
-            BIN.Add(0);BIN.Add(0);BIN.Add(0);
             BIN.Add((byte)resCollection.Count);
-
+            BIN.Add(0);BIN.Add(0);BIN.Add(0);
             UInt32 baseOffset = (UInt32)(4 + resCollection.Count * 16); //Начало данных
             
             foreach(resItem item in resCollection)
             {
-                BIN.AddRange( writeInt32((UInt32)(item.W)));
-                BIN.AddRange( writeInt32((UInt32)(item.H)));
-                BIN.AddRange( writeInt32((UInt32)(item.bit)));
-
-                BIN.AddRange( writeInt32((UInt32)(baseOffset)));
+                BIN.AddRange( writeInt32LitleEndian((UInt32)(item.W)));
+                BIN.AddRange( writeInt32LitleEndian((UInt32)(item.H)));
+                BIN.AddRange( writeInt32LitleEndian((UInt32)(item.bit)));
+                BIN.AddRange( writeInt32LitleEndian((UInt32)(baseOffset)));
 
                 baseOffset += item.getBinLength();
             }
@@ -388,7 +384,11 @@ namespace resurce_packer
 
 
 
-
+        /// <summary>
+        /// R
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonFlash_Click(object sender, EventArgs e)
         {
 
@@ -420,7 +420,12 @@ namespace resurce_packer
 
         private void buttonSaveAdress_Click(object sender, EventArgs e)
         {
-            File.WriteAllText("start.txt", tbAdress.Text);
+            File.WriteAllText("data\\start.txt", tbAdress.Text);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 

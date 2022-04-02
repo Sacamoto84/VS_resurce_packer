@@ -32,6 +32,18 @@ namespace resurce_packer
             return res;
         }
 
+        byte[] writeInt32LitleEndian(UInt32 _in)
+        {
+            byte[] res = new byte[4];
+
+            res[3] = (byte)((_in >> 24) & 0xFF);
+            res[2] = (byte)((_in >> 16) & 0xFF);
+            res[1] = (byte)((_in >> 8) & 0xFF);
+            res[0] = (byte)(_in & 0xFF);
+
+            return res;
+        }
+
         List<Gliph> GliphCollection = new List<Gliph>();  //Коллекция глифов
 
         fontMetrics gFont;
@@ -120,8 +132,8 @@ namespace resurce_packer
 
             UInt32 p_gBitmap; //Указатель на графические данные
             Byte pixel;
-            Byte getColor;
-            getColor = 1;
+            //Byte getColor;
+            //getColor = 1;
 
             UInt16 gNum = 0;
             bool found;
@@ -285,19 +297,24 @@ namespace resurce_packer
 
 
 
-
         /// <summary>
-        /// Этот метод передаёт привет ХабраХабру столько раз, сколько скажите.
+        /// Преобразование Image ARGB в массив байтов
         /// </summary>
-        /// <param name="value">Сколько раз передать привет</param>
-        /// <returns>Сама строка с приветами</returns>
+        /// <param name="value">Исходна картинка</param>
+        /// <returns>Массив байтов</returns>
          byte[] ImageToBytes(Image value)
         {
             ImageConverter converter = new ImageConverter();
             byte[] arr = (byte[])converter.ConvertTo(value, typeof(byte[]));
             return arr;
         }
-         Image  BytesToImage(byte[] value)
+
+        /// <summary>
+        /// Преобразование массив байтов в Image ARGB 
+        /// </summary>
+        /// <param name="value">Массив байтов</param>
+        /// <returns>Image</returns>
+        Image BytesToImage(byte[] value)
         {
             using (var ms = new MemoryStream(value))
             {
@@ -305,6 +322,13 @@ namespace resurce_packer
             }
         }
 
+
+        /// <summary>
+        /// Преобразование Image ARGB массив байтов с учетом битности преобразования 
+        /// </summary>
+        /// <param name="value">Image</param>
+        /// <param name="bit">Битность 16 24 32 бит</param>
+        /// <returns>Массив байтов</returns>
         byte[] ImageToBytesBit(Image value, int bit)
         { 
             List<byte> arr = new List<byte>();
@@ -326,10 +350,20 @@ namespace resurce_packer
                         arr.Add(A);arr.Add(R);arr.Add(G);arr.Add(B);
                     }
 
+                    if (bit == 24)
+                    {
+                        arr.Add(A); 
+                        arr.AddRange(RGB565(R, G, B));
+                    }
+
+
                     if (bit == 16)
                     {
                         arr.AddRange(RGB565(R, G, B));
-                    }                  
+                    }   
+                    
+
+
                 }
             }
 
@@ -338,6 +372,11 @@ namespace resurce_packer
 
 
 
+        /// <summary>
+        /// Преобразование RGB в мссив из двух байт
+        /// </summary>
+        /// <param name="R">Красный</param>
+        /// <returns>Image</returns>
         byte[] RGB565(byte R, byte G, byte B)
         {
             UInt16 r;
@@ -348,9 +387,12 @@ namespace resurce_packer
             return ret;
         }
 
-   
 
-        /* LOG */
+
+        /// <summary>
+        /// Логирование, вывод в listbox log
+        /// </summary>
+        /// <param name="str">Выводимая строка</param>
         private void LOG(string str)
         {
             // #this 
@@ -394,7 +436,7 @@ namespace resurce_packer
     class resItem
     {
         public int    id { get; set; }              //id ресурса
-        public int    start_adress { get; set; }    //Стартовый адресс
+        public int    start_adress { get; set; }    //Стартовый адресс  //Не используем
         public string name { get; set; }         //Название
         public string type { get; set; }         //тип ресурса BMP FONT 
         public int    H              { get; set; }               //высота

@@ -354,6 +354,7 @@ namespace resurce_packer
             this.comboBoxBMPBit.FormattingEnabled = true;
             this.comboBoxBMPBit.Items.AddRange(new object[] {
             "32",
+            "24",
             "16",
             "0"});
             this.comboBoxBMPBit.Location = new System.Drawing.Point(674, 76);
