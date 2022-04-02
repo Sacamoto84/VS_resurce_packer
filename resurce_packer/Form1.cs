@@ -38,17 +38,19 @@ namespace resurce_packer
         //Открытите
         private void Form1_Shown(object sender, EventArgs e)
         {
-            string jsonString = "";
+            //string jsonString = "";
 
-            if (File.Exists("data\\resCollection.json"))
+            if (File.Exists("collection.json"))
             {
                 resCollection = JsonConvert.DeserializeObject<List<resItem>>(File.ReadAllText("data\\resCollection.json"));
             }
             else
               LOG("json не найден");
-            
-            if (resCollection == null)
-                resCollection.Add(new resItem() { id = 10, name = "+" });
+
+            //if (resCollection == null)
+            //{
+                //resCollection.Add(new resItem() { id = 10, name = "+" });
+            //}
             Collection_to_list();
             //CalculateSummBytes();
 
@@ -122,8 +124,6 @@ namespace resurce_packer
                 g.Clear(Color.Magenta);
             }
 
-            CalculateSummBytes();
-
         }
 
         //Удаление записи
@@ -136,7 +136,7 @@ namespace resurce_packer
         private void buttonSaveJson_Click(object sender, EventArgs e)
         {
             string jsonString = JsonConvert.SerializeObject(resCollection);
-            File.WriteAllText("data\\resCollection.json", jsonString);
+            File.WriteAllText("collection.json", jsonString);
             LOG("Сохранить json");
         }
 
@@ -264,20 +264,6 @@ namespace resurce_packer
                 dataGridView1.Rows.Add(new object[] { g.bmp, g.gUnicode.ToString(), String.Format("0X{0:X}", g.gUnicode) });
             }
         }
-
-
-
-
-        //Расчет общего обьема полученного пакета
-        public int CalculateSummBytes()
-        {
-            int sum = 4 + (resCollection.Count * 48); //Заголовок и десккрипшены
-
-            //tbAdress.Text = "Заголовок: " + sum.ToString() + " Данные:" + " Всего";
-            return sum;
-
-        }
-
 
         /// <summary>
         /// Событие> Выбрана строка
