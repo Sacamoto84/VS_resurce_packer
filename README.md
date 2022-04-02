@@ -1,11 +1,11 @@
-Упаковщик ресурсов
+✨Упаковщик ресурсов✨
 ================
 ![Feature Image](/images/img.png)
 
 В разработке для stm32 иногда сталкиваемся с тем что, необходимо иметь возможность менять ресурсы картинки или шрифтом без хранения их в исходных кодах, и без требования перекомпиляции проекта. Это помогает как в уменьшении размера самого компилируемого проекта, что сказывается в уменьшении времени на прошивку Flash памяти, а если искомый размер прошивки становится меньше на секцию флеш памяти, то это поможет увеличить скок службы свободных секторов.
 
 
-Типы ресурсов
+✨Типы ресурсов
 -----------------------------
 **Тип BMP:**
 
@@ -16,36 +16,24 @@
 24 бит ARGB565
 32 бит ARGB888
 ```
-**Тип FONT:**
+✨**Тип FONT:**
 
-Шрифты поддерживаются только созданные Processing4 с расширением .vlw
+✨Шрифты поддерживаются только созданные Processing4 с расширением .vlw
 Программа имеет возможность просматривать глифы шрифта, а также удалять ненужные глифы, тем самым уменьшая размер полученного ресурса.
 
 Файл проекта
 -----------------------------
-Файл готового проекта представляет собой JSON файл resCollection.json(изменим) расположенный рабочей папке программы. Призапуске программа пытается прочесть файл проекта, если не дается, то можно создать новый. И кнопкой сохранить JSON.
+Файл готового проекта представляет собой JSON файл collection.json расположенный в рабочей папке программы. При запуске программа пытается прочесть файл проекта, если не удается, то можно создать новый, кнопкой сохранить JSON.
 
 Прошивка ресурсов
 -----------------------------
-Программа имеет возможность автоматического запуска jlink.exe для прошивки бинарного файла по адрессу указанному в поле начальный адрес.
+Программа имеет возможность автоматического запуска jlink.exe для прошивки бинарного файла, по адрессу указанному в поле начальный адрес.
 
 
 
 
-```
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="months">
-        <item>January</item>
-        .
-        .
-        .
-    </string-array>
-</resources>
-```
-Now to access this programmatically, we can do this:
 
-```java
+```c++
 //Get it in an array of strings
 String[] months = getResources().getStringArray(R.array.months);
 
@@ -53,31 +41,6 @@ String[] months = getResources().getStringArray(R.array.months);
 List<String> monthsList = new ArrayList<String>();
     list = Arrays.asList(months);
 ```
-
-You can also combine these string arrays for use in your apps. Let's say I want a key-value pair with the state codes as the key and the state names as the value. To implement this, I can do the following:
-
-```java
-String[] us_state_codes = getResources().getStringArray(R.array.us_state_codes);
-
-
-String[] us_state = getResources().getStringArray(R.array.us_states);
-
-final Map<String, String> m = new HashMap<String, String>();
-
-for(int i=0;i<us_state_codes.length();i++){
-  m.put(us_state_codes[i],us_states[i]);
-}
-
-```
-As you can see, this is a really flexible way to access data and can be used in various scenarios.
-
-**Note: This is extremely basic stuff but I wanted to show these examples for people who have not worked with string-arrays before.**
-
-Contributing
------------------
-Please use the issue tracker to report any discrepancies in the data or any string-arrays you would like to see.
-
-For contributions to this repo, fell free to send a pull request.
 
 
 Credits
