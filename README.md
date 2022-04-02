@@ -33,7 +33,7 @@
 ⭐⭐ ⭐⭐⭐
 Формат BIN
 
-![Feature Image](/images/img.png)
+![Feature Image](/images/img1.png)
 
 -----------------------------
 
