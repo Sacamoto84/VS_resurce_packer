@@ -7,7 +7,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Windows.Forms;
-
+using System.Configuration;
 
 
 namespace resurce_packer
@@ -26,6 +26,7 @@ namespace resurce_packer
         public Form1()
         {
             InitializeComponent();
+           
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -37,17 +38,22 @@ namespace resurce_packer
         //Открытите
         private void Form1_Shown(object sender, EventArgs e)
         {
-            string jsonString = File.ReadAllText("data\\resCollection.json");
+            string jsonString = "";
 
-            resCollection = JsonConvert.DeserializeObject<List<resItem>>(jsonString);
+            if (File.Exists("data\\resCollection.json"))
+            {
+                resCollection = JsonConvert.DeserializeObject<List<resItem>>(File.ReadAllText("data\\resCollection.json"));
+            }
+            else
+              LOG("json не найден");
+            
             if (resCollection == null)
                 resCollection.Add(new resItem() { id = 10, name = "+" });
             Collection_to_list();
             //CalculateSummBytes();
 
-            jsonString = File.ReadAllText("data\\start.txt");
-            tbAdress.Text = jsonString;
-
+            tbAdress.Text = Properties.Settings.Default.adress;
+         
         }
 
         private void Collection_to_list()
@@ -301,6 +307,13 @@ namespace resurce_packer
         //Кнопка сохранить все в Bin
         private void buttonSaveAllToBin_Click(object sender, EventArgs e)
         {
+            if (resCollection == null)
+            {
+                LOG("Проект пустой");
+                return;
+            }
+
+
             LOG("Создаем BIN файл");
             List<byte> BIN = new List<byte>();
             uint sum = 0;
@@ -309,6 +322,13 @@ namespace resurce_packer
             //Пробегаем по коллекции и создаем bindata для каждого елемента
             foreach(resItem item in resCollection)
             {
+                if (item.type == null) 
+                {
+                    byte [] t = { 0, 0, 0, 0 }; 
+                    item.setBinData ( t );
+                    sum += item.getBinLength();
+                }
+
                 //Пробегаем по коллекции
                 if (item.type == "FONT")
                 {
@@ -357,10 +377,10 @@ namespace resurce_packer
             
             foreach(resItem item in resCollection)
             {
-                BIN.AddRange( writeInt32LitleEndian((UInt32)(item.W)));
-                BIN.AddRange( writeInt32LitleEndian((UInt32)(item.H)));
-                BIN.AddRange( writeInt32LitleEndian((UInt32)(item.bit)));
-                BIN.AddRange( writeInt32LitleEndian((UInt32)(baseOffset)));
+                BIN.AddRange( writeInt32LitleEndian((UInt32)(item.W)));      // only BMP
+                BIN.AddRange( writeInt32LitleEndian((UInt32)(item.H)));      // only BMP
+                BIN.AddRange( writeInt32LitleEndian((UInt32)(item.bit)));    // only BMP
+                BIN.AddRange( writeInt32LitleEndian((UInt32)(baseOffset)));  // Основные данные
 
                 baseOffset += item.getBinLength();
             }
@@ -420,7 +440,8 @@ namespace resurce_packer
 
         private void buttonSaveAdress_Click(object sender, EventArgs e)
         {
-            File.WriteAllText("data\\start.txt", tbAdress.Text);
+            Properties.Settings.Default.adress = tbAdress.Text;
+            Properties.Settings.Default.Save();
         }
 
         private void Form1_Load(object sender, EventArgs e)

@@ -22,5 +22,17 @@ namespace resurce_packer.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0x08030000")]
+        public string adress {
+            get {
+                return ((string)(this["adress"]));
+            }
+            set {
+                this["adress"] = value;
+            }
+        }
     }
 }
