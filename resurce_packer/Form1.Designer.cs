@@ -55,9 +55,6 @@ namespace resurce_packer
             this.buttonGlyphDeleteArray = new System.Windows.Forms.Button();
             this.listBox3 = new System.Windows.Forms.ListBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonSaveAllToBin = new System.Windows.Forms.Button();
             this.comboBoxBMPBit = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -66,12 +63,17 @@ namespace resurce_packer
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.Column1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // listBox1
@@ -80,19 +82,19 @@ namespace resurce_packer
             this.listBox1.ItemHeight = 16;
             this.listBox1.Items.AddRange(new object[] {
             ""});
-            this.listBox1.Location = new System.Drawing.Point(12, 4);
+            this.listBox1.Location = new System.Drawing.Point(3, 4);
             this.listBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(365, 260);
+            this.listBox1.Size = new System.Drawing.Size(374, 244);
             this.listBox1.TabIndex = 0;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 274);
+            this.button1.Location = new System.Drawing.Point(3, 251);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(66, 23);
+            this.button1.Size = new System.Drawing.Size(66, 31);
             this.button1.TabIndex = 1;
             this.button1.Text = "+";
             this.button1.UseVisualStyleBackColor = true;
@@ -100,10 +102,10 @@ namespace resurce_packer
             // 
             // bDelete
             // 
-            this.bDelete.Location = new System.Drawing.Point(84, 274);
+            this.bDelete.Location = new System.Drawing.Point(112, 252);
             this.bDelete.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.bDelete.Name = "bDelete";
-            this.bDelete.Size = new System.Drawing.Size(128, 23);
+            this.bDelete.Size = new System.Drawing.Size(128, 29);
             this.bDelete.TabIndex = 2;
             this.bDelete.Text = "Удалить Строку";
             this.bDelete.UseVisualStyleBackColor = true;
@@ -181,10 +183,10 @@ namespace resurce_packer
             // 
             this.log.FormattingEnabled = true;
             this.log.ItemHeight = 16;
-            this.log.Location = new System.Drawing.Point(12, 306);
+            this.log.Location = new System.Drawing.Point(3, 285);
             this.log.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.log.Name = "log";
-            this.log.Size = new System.Drawing.Size(365, 132);
+            this.log.Size = new System.Drawing.Size(374, 100);
             this.log.TabIndex = 12;
             // 
             // label4
@@ -201,7 +203,7 @@ namespace resurce_packer
             this.panel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.labelIndex);
-            this.panel1.Location = new System.Drawing.Point(218, 268);
+            this.panel1.Location = new System.Drawing.Point(246, 252);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(131, 29);
@@ -236,7 +238,7 @@ namespace resurce_packer
             // pBox
             // 
             this.pBox.BackColor = System.Drawing.Color.Magenta;
-            this.pBox.Location = new System.Drawing.Point(3, 2);
+            this.pBox.Location = new System.Drawing.Point(4, 4);
             this.pBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pBox.Name = "pBox";
             this.pBox.Size = new System.Drawing.Size(240, 192);
@@ -252,10 +254,10 @@ namespace resurce_packer
             this.buttonOpenPicture.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonOpenPicture.BackgroundImage")));
             this.buttonOpenPicture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonOpenPicture.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonOpenPicture.Location = new System.Drawing.Point(3, 311);
+            this.buttonOpenPicture.Location = new System.Drawing.Point(4, 310);
             this.buttonOpenPicture.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonOpenPicture.Name = "buttonOpenPicture";
-            this.buttonOpenPicture.Size = new System.Drawing.Size(240, 66);
+            this.buttonOpenPicture.Size = new System.Drawing.Size(240, 67);
             this.buttonOpenPicture.TabIndex = 18;
             this.buttonOpenPicture.Text = "Открыть картинку";
             this.buttonOpenPicture.UseVisualStyleBackColor = true;
@@ -266,7 +268,7 @@ namespace resurce_packer
             this.listBox2.Font = new System.Drawing.Font("JetBrains Mono", 12F);
             this.listBox2.FormattingEnabled = true;
             this.listBox2.ItemHeight = 26;
-            this.listBox2.Location = new System.Drawing.Point(3, 199);
+            this.listBox2.Location = new System.Drawing.Point(4, 199);
             this.listBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(240, 108);
@@ -275,10 +277,10 @@ namespace resurce_packer
             // buttonOpenFont
             // 
             this.buttonOpenFont.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonOpenFont.Location = new System.Drawing.Point(1018, 133);
+            this.buttonOpenFont.Location = new System.Drawing.Point(3, 5);
             this.buttonOpenFont.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonOpenFont.Name = "buttonOpenFont";
-            this.buttonOpenFont.Size = new System.Drawing.Size(175, 37);
+            this.buttonOpenFont.Size = new System.Drawing.Size(240, 40);
             this.buttonOpenFont.TabIndex = 23;
             this.buttonOpenFont.Text = "Открыть Фонт";
             this.buttonOpenFont.UseVisualStyleBackColor = true;
@@ -287,10 +289,10 @@ namespace resurce_packer
             // buttonGlyphDelete
             // 
             this.buttonGlyphDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonGlyphDelete.Location = new System.Drawing.Point(1012, 7);
+            this.buttonGlyphDelete.Location = new System.Drawing.Point(3, 49);
             this.buttonGlyphDelete.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonGlyphDelete.Name = "buttonGlyphDelete";
-            this.buttonGlyphDelete.Size = new System.Drawing.Size(175, 62);
+            this.buttonGlyphDelete.Size = new System.Drawing.Size(240, 40);
             this.buttonGlyphDelete.TabIndex = 26;
             this.buttonGlyphDelete.Text = "Удалить глиф";
             this.buttonGlyphDelete.UseVisualStyleBackColor = true;
@@ -299,10 +301,10 @@ namespace resurce_packer
             // buttonSaveFont
             // 
             this.buttonSaveFont.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonSaveFont.Location = new System.Drawing.Point(1018, 210);
+            this.buttonSaveFont.Location = new System.Drawing.Point(3, 137);
             this.buttonSaveFont.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonSaveFont.Name = "buttonSaveFont";
-            this.buttonSaveFont.Size = new System.Drawing.Size(175, 48);
+            this.buttonSaveFont.Size = new System.Drawing.Size(240, 40);
             this.buttonSaveFont.TabIndex = 27;
             this.buttonSaveFont.Text = "Сохранить в колекцию";
             this.buttonSaveFont.UseVisualStyleBackColor = true;
@@ -311,10 +313,10 @@ namespace resurce_packer
             // buttonGlyphDeleteArray
             // 
             this.buttonGlyphDeleteArray.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonGlyphDeleteArray.Location = new System.Drawing.Point(1018, 174);
+            this.buttonGlyphDeleteArray.Location = new System.Drawing.Point(3, 93);
             this.buttonGlyphDeleteArray.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonGlyphDeleteArray.Name = "buttonGlyphDeleteArray";
-            this.buttonGlyphDeleteArray.Size = new System.Drawing.Size(175, 32);
+            this.buttonGlyphDeleteArray.Size = new System.Drawing.Size(240, 40);
             this.buttonGlyphDeleteArray.TabIndex = 28;
             this.buttonGlyphDeleteArray.Text = "Удалить мусор";
             this.buttonGlyphDeleteArray.UseVisualStyleBackColor = true;
@@ -324,10 +326,10 @@ namespace resurce_packer
             // 
             this.listBox3.FormattingEnabled = true;
             this.listBox3.ItemHeight = 16;
-            this.listBox3.Location = new System.Drawing.Point(1018, 271);
+            this.listBox3.Location = new System.Drawing.Point(3, 181);
             this.listBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.listBox3.Name = "listBox3";
-            this.listBox3.Size = new System.Drawing.Size(175, 100);
+            this.listBox3.Size = new System.Drawing.Size(240, 100);
             this.listBox3.TabIndex = 29;
             this.listBox3.SelectedIndexChanged += new System.EventHandler(this.listBox3_SelectedIndexChanged);
             // 
@@ -340,44 +342,19 @@ namespace resurce_packer
             this.Column1,
             this.Column2,
             this.Column3});
-            this.dataGridView1.Location = new System.Drawing.Point(1199, 10);
+            this.dataGridView1.Location = new System.Drawing.Point(1199, 4);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.RowHeadersWidth = 40;
             this.dataGridView1.RowTemplate.Height = 64;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(307, 382);
+            this.dataGridView1.Size = new System.Drawing.Size(307, 380);
             this.dataGridView1.TabIndex = 32;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
-            // 
-            // Column1
-            // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column1.HeaderText = "Глиф";
-            this.Column1.MinimumWidth = 6;
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 47;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Unicode";
-            this.Column2.MinimumWidth = 6;
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Width = 125;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "HEX";
-            this.Column3.MinimumWidth = 6;
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            this.Column3.Width = 125;
             // 
             // buttonSaveAllToBin
             // 
@@ -424,7 +401,7 @@ namespace resurce_packer
             this.buttonFlash.Location = new System.Drawing.Point(3, 2);
             this.buttonFlash.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonFlash.Name = "buttonFlash";
-            this.buttonFlash.Size = new System.Drawing.Size(240, 55);
+            this.buttonFlash.Size = new System.Drawing.Size(296, 55);
             this.buttonFlash.TabIndex = 36;
             this.buttonFlash.Text = "Прошить";
             this.buttonFlash.UseVisualStyleBackColor = true;
@@ -435,7 +412,7 @@ namespace resurce_packer
             this.buttonSaveAdress.Location = new System.Drawing.Point(156, 75);
             this.buttonSaveAdress.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonSaveAdress.Name = "buttonSaveAdress";
-            this.buttonSaveAdress.Size = new System.Drawing.Size(87, 23);
+            this.buttonSaveAdress.Size = new System.Drawing.Size(143, 23);
             this.buttonSaveAdress.TabIndex = 37;
             this.buttonSaveAdress.Text = "Save";
             this.buttonSaveAdress.UseVisualStyleBackColor = true;
@@ -475,26 +452,60 @@ namespace resurce_packer
             this.panel4.Controls.Add(this.buttonSaveAdress);
             this.panel4.Controls.Add(this.tbAdress);
             this.panel4.Controls.Add(this.label5);
-            this.panel4.Location = new System.Drawing.Point(383, 284);
+            this.panel4.Location = new System.Drawing.Point(383, 285);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(246, 100);
+            this.panel4.Size = new System.Drawing.Size(302, 100);
             this.panel4.TabIndex = 40;
+            // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.Color.Green;
+            this.panel5.Controls.Add(this.buttonGlyphDelete);
+            this.panel5.Controls.Add(this.buttonOpenFont);
+            this.panel5.Controls.Add(this.buttonSaveFont);
+            this.panel5.Controls.Add(this.buttonGlyphDeleteArray);
+            this.panel5.Controls.Add(this.listBox3);
+            this.panel5.Location = new System.Drawing.Point(945, 4);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(248, 381);
+            this.panel5.TabIndex = 41;
+            // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column1.HeaderText = "Глиф";
+            this.Column1.MinimumWidth = 6;
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 47;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Unicode";
+            this.Column2.MinimumWidth = 6;
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Width = 80;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "HEX";
+            this.Column3.MinimumWidth = 6;
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Width = 80;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1539, 658);
+            this.ClientSize = new System.Drawing.Size(1511, 391);
+            this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.buttonSaveAllToBin);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.listBox3);
-            this.Controls.Add(this.buttonGlyphDeleteArray);
-            this.Controls.Add(this.buttonSaveFont);
-            this.Controls.Add(this.buttonGlyphDelete);
-            this.Controls.Add(this.buttonOpenFont);
             this.Controls.Add(this.buttonSaveJson);
             this.Controls.Add(this.bDelete);
             this.Controls.Add(this.panel1);
@@ -504,7 +515,7 @@ namespace resurce_packer
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
-            this.Text = "Упаковщик ресурсов V11 2.04.2022";
+            this.Text = "Упаковщик ресурсов V12 2.04.2022";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Shown += new System.EventHandler(this.Form1_Shown);
@@ -517,6 +528,7 @@ namespace resurce_packer
             this.panel3.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.panel5.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -548,9 +560,6 @@ namespace resurce_packer
         private System.Windows.Forms.Button buttonGlyphDeleteArray;
         private System.Windows.Forms.ListBox listBox3;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewImageColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.Button buttonSaveAllToBin;
         private System.Windows.Forms.ComboBox comboBoxBMPBit;
         private System.Windows.Forms.Label label3;
@@ -559,5 +568,9 @@ namespace resurce_packer
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.DataGridViewImageColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
     }
 }
