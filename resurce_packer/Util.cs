@@ -370,8 +370,6 @@ namespace resurce_packer
             return arr.ToArray();
         }
 
-
-
         /// <summary>
         /// Преобразование RGB в мссив из двух байт
         /// </summary>
