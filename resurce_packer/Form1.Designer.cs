@@ -67,6 +67,8 @@ namespace resurce_packer
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.buttonUP = new System.Windows.Forms.Button();
+            this.buttonDown = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -91,10 +93,10 @@ namespace resurce_packer
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(3, 251);
+            this.button1.Location = new System.Drawing.Point(3, 252);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(66, 31);
+            this.button1.Size = new System.Drawing.Size(40, 30);
             this.button1.TabIndex = 1;
             this.button1.Text = "+";
             this.button1.UseVisualStyleBackColor = true;
@@ -102,10 +104,10 @@ namespace resurce_packer
             // 
             // bDelete
             // 
-            this.bDelete.Location = new System.Drawing.Point(112, 252);
+            this.bDelete.Location = new System.Drawing.Point(141, 252);
             this.bDelete.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.bDelete.Name = "bDelete";
-            this.bDelete.Size = new System.Drawing.Size(128, 29);
+            this.bDelete.Size = new System.Drawing.Size(120, 30);
             this.bDelete.TabIndex = 2;
             this.bDelete.Text = "Удалить Строку";
             this.bDelete.UseVisualStyleBackColor = true;
@@ -157,7 +159,7 @@ namespace resurce_packer
             // labelIndex
             // 
             this.labelIndex.AutoSize = true;
-            this.labelIndex.Location = new System.Drawing.Point(68, 7);
+            this.labelIndex.Location = new System.Drawing.Point(59, 7);
             this.labelIndex.Name = "labelIndex";
             this.labelIndex.Size = new System.Drawing.Size(44, 16);
             this.labelIndex.TabIndex = 9;
@@ -199,16 +201,17 @@ namespace resurce_packer
             this.label4.Size = new System.Drawing.Size(55, 16);
             this.label4.TabIndex = 13;
             this.label4.Text = "Индекс";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.labelIndex);
-            this.panel1.Location = new System.Drawing.Point(246, 252);
+            this.panel1.Location = new System.Drawing.Point(269, 253);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(131, 29);
+            this.panel1.Size = new System.Drawing.Size(108, 29);
             this.panel1.TabIndex = 14;
             // 
             // buttonSaveJson
@@ -497,11 +500,33 @@ namespace resurce_packer
             this.panel5.Size = new System.Drawing.Size(248, 381);
             this.panel5.TabIndex = 41;
             // 
+            // buttonUP
+            // 
+            this.buttonUP.Location = new System.Drawing.Point(49, 253);
+            this.buttonUP.Name = "buttonUP";
+            this.buttonUP.Size = new System.Drawing.Size(40, 30);
+            this.buttonUP.TabIndex = 42;
+            this.buttonUP.Text = "UP";
+            this.buttonUP.UseVisualStyleBackColor = true;
+            this.buttonUP.Click += new System.EventHandler(this.buttonUP_Click);
+            // 
+            // buttonDown
+            // 
+            this.buttonDown.Location = new System.Drawing.Point(95, 253);
+            this.buttonDown.Name = "buttonDown";
+            this.buttonDown.Size = new System.Drawing.Size(40, 30);
+            this.buttonDown.TabIndex = 43;
+            this.buttonDown.Text = "DW";
+            this.buttonDown.UseVisualStyleBackColor = true;
+            this.buttonDown.Click += new System.EventHandler(this.buttonDown_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1511, 391);
+            this.Controls.Add(this.buttonDown);
+            this.Controls.Add(this.buttonUP);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
@@ -574,5 +599,7 @@ namespace resurce_packer
         private System.Windows.Forms.DataGridViewImageColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.Button buttonUP;
+        private System.Windows.Forms.Button buttonDown;
     }
 }

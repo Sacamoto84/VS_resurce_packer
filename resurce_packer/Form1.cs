@@ -478,6 +478,29 @@ namespace resurce_packer
         {
 
         }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonUP_Click(object sender, EventArgs e)
+        {
+            int index = listBox1.SelectedIndex;
+            if (index == 0) return;
+
+            resCollection = swap(resCollection, index, index - 1);
+            Collection_to_list();
+
+        }
+
+        private void buttonDown_Click(object sender, EventArgs e)
+        {
+            int index = listBox1.SelectedIndex;
+            if (index == resCollection.Count -1) return;
+            resCollection = swap(resCollection, index, index + 1);
+            Collection_to_list();
+        }
     }
 
 

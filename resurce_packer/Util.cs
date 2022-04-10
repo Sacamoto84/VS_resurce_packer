@@ -403,9 +403,14 @@ namespace resurce_packer
 
 
 
+        List<resItem> swap (List<resItem> list, int firstIndex, int secondIndex)
+        {
+            resItem temp = list[firstIndex];
+            list[firstIndex] = list[secondIndex];
+            list[secondIndex] = temp;
 
-
-
+            return list;
+        }
 
 
 
