@@ -42,7 +42,7 @@ namespace resurce_packer
 
             if (File.Exists("collection.json"))
             {
-                resCollection = JsonConvert.DeserializeObject<List<resItem>>(File.ReadAllText("data\\resCollection.json"));
+                resCollection = JsonConvert.DeserializeObject<List<resItem>>(File.ReadAllText("collection.json"));
             }
             else
               LOG("json не найден");
@@ -64,10 +64,13 @@ namespace resurce_packer
 
             if (resCollection == null) return;
 
+            int index = 0;
+
             foreach (resItem item in resCollection)
             {
-                string str = "id: " + item.id.ToString() + "  Тип: " + item.type +" bit:"+item.bit.ToString() + "  Имя: " + item.name ;
+                string str = "id: " + index.ToString() + "  Тип: " + item.type +" bit:"+item.bit.ToString() + "  Имя: " + item.name ;
                 listBox1.Items.Add(str);
+                index++;
             }
             LOG("Обновить listbox");
         }
@@ -77,13 +80,13 @@ namespace resurce_packer
         {
             int index = listBox1.SelectedIndex;
             if (index == -1) return;
-            LOG(index.ToString());
+            //LOG(index.ToString());
 
             labelIndex.Text = index.ToString();
             selectedIndex = index;
 
             //Заполняем TextBox
-            tbID.Text = resCollection[index].id.ToString();
+            tbID.Text   = index.ToString();
             tbName.Text = resCollection[index].name;
 
             comboBoxBMPBit.Text = resCollection[index].bit.ToString();
@@ -96,6 +99,7 @@ namespace resurce_packer
                 listBox2.Items.Add("Ширина : " + resCollection[index].W.ToString());
                 listBox2.Items.Add("Пикселей : " + resCollection[index].H * resCollection[index].W);
                 listBox2.Items.Add("32b : " + resCollection[index].H * resCollection[index].W * 4);
+                listBox2.Items.Add("24b : " + resCollection[index].H * resCollection[index].W * 3);
                 listBox2.Items.Add("16b : " + resCollection[index].H * resCollection[index].W * 2);
 
                 dataGridView1.Enabled = false;
@@ -276,7 +280,7 @@ namespace resurce_packer
             int index = dataGridView1.CurrentCell.RowIndex;
             int selRowNum = Convert.ToInt32(dataGridView1[1, dataGridView1.CurrentCell.RowIndex].Value);
 
-            LOG("g " + index.ToString());
+            //LOG("g " + index.ToString());
 
 
             pBox.Image = Font_Smooth_drawGlyph((ushort)Convert.ToInt32(selRowNum));
@@ -466,6 +470,11 @@ namespace resurce_packer
         }
 
         private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
         {
 
         }
